@@ -13,7 +13,7 @@
           "strict": true
         }
       },
-      "root": "",s
+      "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {

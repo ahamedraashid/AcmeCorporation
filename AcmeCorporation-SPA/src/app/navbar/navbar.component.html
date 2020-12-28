@@ -1,0 +1,75 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-md navbar-dark unique-color" [containerInside]="false" mdbStickyHeader>
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><a class="navbar-brand" href="#">Acme Corporation</a></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link waves-light"  [routerLink]="['/home']"  mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a  [routerLink]="['/admin']"  class="nav-link waves-light" mdbWavesEffect>Admin</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>Pricing</a>
+      </li>  -->
+
+      <!-- Dropdown -->
+      <!-- <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          Basic dropdown<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Another action</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>
+        </div>
+      </li> -->
+
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+
+      <li class="nav-item pt-2" *ngIf="loggedIn">
+        <span class="waves-light text-white" mdbWavesEffect>Welcome {{ authService.decondedToken?.unique_name }}!</span>
+      </li>
+      <li class="nav-item">
+        <div class="text-center" >
+          <button mdbBtn *ngIf="!loggedIn && router.url != '/admin'" type="button" gradient="peach" data-toggle="modal" size="sm" data-target="#registerForm" size="sm" mdbWavesEffect>Register</button>
+          <button mdbBtn *ngIf="!loggedIn" type="button" gradient="purple" data-toggle="modal" size="sm" data-target="#loginForm" size="sm" mdbWavesEffect>Login</button>
+          <!-- <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" size="sm" data-target="#frameModalTop">Login</a> -->
+          <button mdbBtn *ngIf="loggedIn" (click)="logout()" type="button" color="green" data-toggle="modal" size="sm" mdbWavesEffect>Logout</button>
+
+        </div>
+        <!-- <div *ngIf="loggedIn">
+          <span>Welcome user </span>
+          <a > Logout</a>
+        </div> -->
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link">
+          <div class="btn-group" mdbDropdown>
+            <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
+            <div class="dropdown-menu dropdown-menu-right dropdown-primary">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="divider dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </div>
+        </a>
+      </li> -->
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->

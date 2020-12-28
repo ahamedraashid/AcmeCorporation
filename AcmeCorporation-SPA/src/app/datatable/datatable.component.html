@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="md-form">
+        <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
+               mdbInput>
+        <label for="search-input">Search</label>
+      </div>
+    </div>
+    <!-- stickyHeader=true hover=true striped="true | boolean" -->
+    <table mdbTable #tableEl="mdbTable"  class="z-depth-1">
+      <thead class="sticky-top">
+      <tr>
+        <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="elements" [sortBy]="headElements[i]"
+            scope="col">{{head | titlecase}} <mdb-icon fas icon="sort"></mdb-icon>
+        </th>
+      </tr>
+      </thead>
+      <tbody #row>
+        <!-- (rowCreated)="onRowCreate($event)" (rowRemoved)="onRowRemove($event)" -->
+      <tr mdbTableCol  *ngFor="let el of elements; let i = index">
+        <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">{{el.id}}</th>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="red-text">{{el.name}}</td>
+        <!-- <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="text-wrap">{{el.description}}</td> -->
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">Rs {{el.initialBid | number : '.2-2'}}</td>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">Rs {{el.highestBid | number : '.2-2'}}</td>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.startingDate }}: {{el.startingTime }}</td>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.endingDate }}: {{el.endingTime }}</td>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.status }}</td>
+
+
+
+        <td  *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+          <a *ngIf="el.status == 'Inactive'" mdbBtn size="sm" [routerLink]="['/admin/addproduct', el.id]" color="warning" mdbwaveseffect="" ><mdb-icon fas icon="edit"></mdb-icon></a>
+          <a mdbBtn data-toggle="modal" data-target="#delete-modal" (click)="initProductDeleteModal(el.id)" *ngIf="el.status !== 'Active'"  size="sm" color="danger" mdbwaveseffect=""><mdb-icon fas icon="trash" ></mdb-icon></a>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot class="grey lighten-5 w-100">
+      <tr>
+        <td colspan="8">
+          <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="elements"></mdb-table-pagination>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<app-delete-product (deletedProductId)="deleteProductIdRow($event)" [productId]="productId"></app-delete-product>

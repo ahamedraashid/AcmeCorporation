@@ -1,0 +1,81 @@
+<div mdbModal #frame="mdbModal" class="modal fade left" id="registerForm" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
+          <input type="text" id="orangeForm-name" class="form-control" formControlName="signupFormModalName"
+                 mdbInput>
+          <label for="orangeForm-name">Your name</label>
+          <ng-container *ngIf="signupFormModalName.invalid && (signupFormModalName.dirty || signupFormModalName.touched)">
+            <mdb-error *ngIf="signupFormModalName.errors.required">
+               Name field is required
+             </mdb-error>
+             <!-- <mdb-error *ngIf="signupFormModalName.errors.email">
+               Enter a valid Email
+             </mdb-error> -->
+             <mdb-success
+             *ngIf="signupFormModalName.valid">
+             Valid Name
+           </mdb-success>
+
+           </ng-container>
+        </div>
+        <div class="md-form mb-5">
+          <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+          <input type="email" id="orangeForm-email" class="form-control" formControlName="signupFormModalEmail"
+                 mdbInput>
+          <label for="orangeForm-email">Your email</label>
+          <ng-container *ngIf="signupFormModalEmail.invalid && (signupFormModalEmail.dirty || signupFormModalEmail.touched)">
+            <mdb-error *ngIf="signupFormModalEmail.errors.required">
+               Email field is required
+             </mdb-error>
+             <mdb-error *ngIf="signupFormModalEmail.errors.email">
+               Enter a valid Email
+             </mdb-error>
+             <mdb-error *ngIf="signupFormModalEmail.errors.userExist">
+              Email address already exist!
+            </mdb-error>
+             <mdb-success
+             *ngIf="signupFormModalEmail.valid">
+             Valid Email
+           </mdb-success>
+
+           </ng-container>
+        </div>
+
+        <div class="md-form mb-4">
+          <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+          <input type="password" id="orangeForm-pass" class="form-control" formControlName="signupFormModalPassword"
+                 mdbInput>
+          <label for="orangeForm-pass">Your password</label>
+          <ng-container *ngIf="signupFormModalPassword.invalid && (signupFormModalPassword.dirty || signupFormModalPassword.touched)">
+            <mdb-error *ngIf="signupFormModalPassword.errors.minlength">
+              Password should contain atleast 6 characters.
+            </mdb-error> <mdb-error *ngIf="signupFormModalPassword.errors.required">
+              Password field is required
+            </mdb-error>
+            <mdb-success
+            *ngIf="signupFormModalPassword.valid">
+            Valid password
+          </mdb-success>
+
+          </ng-container>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="deep-orange" class="waves-light" mdbWavesEffect [disabled]="registerForm.invalid" type="submit">Sign up</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

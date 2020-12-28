@@ -1,0 +1,39 @@
+// .text-wrap
+// {
+//     overflow: hidden;
+//     white-space:nowrap;
+//     text-overflow:ellipsis;
+//     width:150px;
+//     display:inline-block;
+// }
+
+.text-wrap
+{
+ max-width: 100px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+
+// td
+// {
+//   display: block;
+//   overflow-y: hidden;
+//   max-height: 20px;
+// }
+
+.ellipsis {
+  position: relative;
+}
+.ellipsis:before {
+  content: '&nbsp;';
+  visibility: hidden;
+}
+.ellipsis span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

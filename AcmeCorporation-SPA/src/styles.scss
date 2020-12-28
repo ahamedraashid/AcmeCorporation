@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/font-awesome/scss/font-awesome.scss';
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+
+
+alertify-notifier .ajs-message { color: #31708f;  background-color: #d9edf7;  border-color: #31708f; }
+
+
+.content-body {
+  margin-top:70px;
+}

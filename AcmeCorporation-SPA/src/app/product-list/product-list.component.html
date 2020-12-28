@@ -1,0 +1,46 @@
+<app-search-bar (searchCriteria)="filterProduct($event)"></app-search-bar>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <h5 class="display-8 ">Product List</h5>
+    </div>
+  </div>
+  <div class="row w-100 hover-shadow" *ngFor="let item of filteredProducts">
+    <div class="col-lg-8 mx-auto test">
+      <!-- List group-->
+      <ul class="list-group shadow">
+        <!-- list group item-->
+        <li class="list-group-item">
+          <!-- Custom content-->
+          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+            <div class="media-body order-2 order-lg-1">
+              <h5 class="mt-0 font-weight-bold mb-2"><a [routerLink]="['/product', item.id]" class="stretched-link">{{ item.name }}</a></h5>
+              <p class="font-italic text-muted mb-0 small">{{ item.description }}</p>
+              <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="my-2">Starting bid: <span class="text-red">Rs {{ item.initialBid | number : '.2-2'}} </span>
+                </h6>
+                <h6 class="my-2">Highest bid: Rs {{ item.highestBid | number : '.2-2'}}</h6>
+              </div>
+            </div><img [src]="baseUrl + item.imageUrls[0]" alt="Generic placeholder image" width="200"
+              class="ml-lg-5 order-1 order-lg-2">
+          </div> <!-- End -->
+        </li> <!-- End -->
+      </ul> <!-- End -->
+    </div>
+  </div>
+  <!-- <ng-container *ngIf="time1$ | async as time1">
+  <p>{{time1.days}}days {{time1.hours}}hours {{time1.minutes}} minutes {{time1.seconds}}seconds<p>
+  <br>
+  </ng-container>
+
+<ng-container *ngIf="time2$ | async as time2">
+ <p>{{time2.days}}days {{time2.hours}}hours {{time2.minutes}} minutes {{time2.seconds}}seconds<p>
+  <br>
+ </ng-container> -->
+
+  <ng-container *ngIf="time2$ | async as time2">
+    <p>{{ time2 }}
+    <p>
+      <br>
+  </ng-container>
+</div>

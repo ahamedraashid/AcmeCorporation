@@ -1,0 +1,5 @@
+
+<div *ngIf="productList">
+  <app-datatable [itemList]="productList" [headElements]="headElements" *ngIf="loggedInAsAdmin"></app-datatable>
+</div>
+

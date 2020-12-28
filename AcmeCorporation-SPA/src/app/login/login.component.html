@@ -1,0 +1,60 @@
+<div mdbModal #frame="mdbModal"  class="modal fade left" id="loginForm" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+
+          <div class="md-form mb-5">
+            <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+            <input type="email" id="defaultForm-email" formControlName="loginFormModalEmail" class="form-control"
+              mdbInput>
+            <label for="defaultForm-email">Your email</label>
+            <ng-container *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+             <mdb-error *ngIf="loginFormModalEmail.errors.required">
+                Email field is required
+              </mdb-error>
+              <mdb-error *ngIf="loginFormModalEmail.errors.email">
+                Enter a valid Email
+              </mdb-error>
+              <mdb-success
+              *ngIf="loginFormModalEmail.valid">
+              Valid Email
+            </mdb-success>
+
+            </ng-container>
+          </div>
+
+          <div class="md-form mb-4">
+            <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+            <input type="password" id="defaultForm-pass" formControlName="loginFormModalPassword" class="form-control"
+              mdbInput>
+            <label for="defaultForm-pass">Your password</label>
+            <ng-container *ngIf="loginFormModalPassword.invalid && (loginFormModalPassword.dirty || loginFormModalPassword.touched)">
+              <mdb-error *ngIf="loginFormModalPassword.errors.minlength">
+                Password should contain atleast 6 characters.
+              </mdb-error> <mdb-error *ngIf="loginFormModalPassword.errors.required">
+                Password field is required
+              </mdb-error>
+              <mdb-success
+              *ngIf="loginFormModalPassword.valid">
+              Valid password
+            </mdb-success>
+
+            </ng-container>
+          </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="default" class="waves-light" mdbWavesEffect  [disabled]="loginForm.invalid" type="submit">Login</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

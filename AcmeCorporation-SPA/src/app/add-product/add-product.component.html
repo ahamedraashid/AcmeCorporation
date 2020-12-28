@@ -1,0 +1,168 @@
+<!-- Material form register -->
+<mdb-card class="row col-md-6 offset-md-3 content-body">
+
+  <mdb-card-header class="info-color white-text text-center py-4">
+    <h5>
+      <strong><span *ngIf="editMode">Edit </span><span *ngIf="!editMode">Add </span>product</strong>
+    </h5>
+  </mdb-card-header>
+
+  <!--Card content-->
+  <mdb-card-body class="px-lg-5 pt-0">
+
+    <!-- Form -->
+    <form  class="text-center" style="color: #757575;" [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+
+      <div class="form-row">
+        <div class="col col-md-8">
+          <!-- First name -->
+          <div class="md-form">
+            <input type="text" id="product-name" formControlName="name" class="form-control" mdbInput>
+            <label for="product-name">Product Name</label>
+            <ng-container *ngIf="getProductName.invalid && (getProductName.dirty || getProductName.touched)">
+              <mdb-error *ngIf="getProductName.errors.required">
+                Product name is required
+              </mdb-error>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div class="col"> -->
+          <!-- Last name -->
+          <!-- <div class="md-form">
+            <input type="email" id="materialRegisterFormLastName" class="form-control" mdbInput>
+            <label for="materialRegisterFormLastName">Last name</label>
+          </div>
+        </div> -->
+      </div>
+
+
+      <div class="md-form mt-0">
+        <textarea type="text" id="form7" formControlName="description" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+        <label for="form7">Description</label>
+      </div>
+
+
+      <div class="form-row">
+        <div class="col col-md-1" style="align-self: center">
+          Rs
+        </div>
+        <div class="col col-md-4">
+          <div class="md-form">
+            <input type="number" id="starting-bid" formControlName="startingBid" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock"
+            mdbInput>
+          <label for="starting-bid">Starting bid</label>
+          <ng-container *ngIf="getInitialBidValue.invalid && (getInitialBidValue.dirty || getInitialBidValue.touched)">
+            <mdb-error *ngIf="getInitialBidValue.errors.min">
+              Amount should be a positive number
+            </mdb-error>
+          </ng-container>
+          <mdb-error *ngIf="addProductForm.hasError('startingBid', 'min')">
+            Amount should be positive number.
+          </mdb-error>
+          </div>
+        </div>
+        <div class="col col-md-1" style="align-self: center">
+          .00
+        </div>
+        <!-- <div class="col col-md-6" style="align-self: center">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" [(ngModel)]="startAuctionNow" class="custom-control-input" id="customSwitches">
+            <label class="custom-control-label" for="customSwitches">Start auction now</label>
+          </div>
+        </div> -->
+      </div>
+      <app-datetimepicker *ngIf="addProductForm" [form]="addProductForm"></app-datetimepicker>
+
+<!--
+      <div class="md-form">
+        <input type="text" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock"
+          mdbInput>
+        <label for="materialRegisterFormPhone">Phone number</label>
+        <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+          Optional - for two-step authentication
+        </small>
+      </div> -->
+
+      <div class="row col-md-12" >
+        <input id="file-uploader" class="image-name" type='file' accept="image/*" (change)="onSelectFile($event)" multiple/>
+      </div>
+      <div *ngIf="editMode" class="row ml-2">
+        <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+          Uploading images will overwrite the existing images
+        </small>
+      </div>
+
+      <div class="row mt-3 ml-1">
+        <div>
+          <strong *ngIf="files">Upload Images  {{ files.length}}</strong>
+        </div>
+      </div>
+      <ng-container *ngIf="product && imageUrl.length === 0 && editMode"  >
+        <div class="row col-md-6" style="height: 300px; width: 300px;">
+          <mdb-carousel  [animation]="'slide'">
+            <mdb-carousel-item *ngFor="let image of product.imageUrls">
+              <img class="d-block w-100" [src]="baseUrl + image">
+            </mdb-carousel-item >
+          </mdb-carousel>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="imageUrl.length > 0" >
+        <div  class="row col-md-6" style="height: 300px; width: 300px;">
+          <mdb-carousel [animation]="'slide'">
+            <mdb-carousel-item *ngFor="let image of imageUrl">
+              <img class="d-block w-100" [src]="image">
+            </mdb-carousel-item >
+          </mdb-carousel>
+        </div>
+    </ng-container>
+
+
+
+      <!-- <div class="row mt-3 ml-1">
+        <ul  *ngFor="let item of files">
+          <li style="display: inline-block" >{{  item.name}} </li>
+        </ul>
+      </div> -->
+
+
+
+      <!-- <app-fileupload></app-fileupload> -->
+
+
+      <!-- Sign up button -->
+      <button mdbBtn color="warning"  class="my-4 waves-effect z-depth-0" mdbWavesEffect [routerLink]="['/admin']"
+      >Cancel</button>
+      <button mdbBtn color="green"  class="my-4 waves-effect z-depth-0" mdbWavesEffect
+        type="submit">{{ editMode ? 'Update' : 'Save' }}</button>
+
+
+      <!-- Social register -->
+      <!-- <p>or sign up with:</p>
+
+      <a type="button" class="light-blue-text mx-2">
+        <mdb-icon fab icon="facebook"></mdb-icon>
+      </a>
+      <a type="button" class="light-blue-text mx-2">
+        <mdb-icon fab icon="twitter"></mdb-icon>
+      </a>
+      <a type="button" class="light-blue-text mx-2">
+        <mdb-icon fab icon="linkedin"></mdb-icon>
+      </a>
+      <a type="button" class="light-blue-text mx-2">
+        <mdb-icon fab icon="heart"></mdb-icon>
+      </a> -->
+
+      <hr>
+
+      <!-- Terms of service -->
+      <!-- <p>By clicking
+        <em>Sign up</em> you agree to our
+        <a href="" target="_blank">terms of service</a>. </p> -->
+
+    </form>
+    <!-- Form -->
+
+  </mdb-card-body>
+
+</mdb-card>
+<!-- Material form register -->

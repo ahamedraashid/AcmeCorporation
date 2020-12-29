@@ -1,96 +1,96 @@
 # AcmeCoporation
 
-An auctioning system which enables user to do interact and place bids.
+An auctioning system which enables user to interact and place bids.
+
+## Technology used
+* ASP.NET CORE 2.2
+* Angular 11
+* EF core
+* Sql Server 2019 
 
 ## Getting Started
 
 ### Clone the repository
 
 ```
-git clone https://github.com/ahamedraashid/AcmeCorporation/tree/master
+git clone https://github.com/ahamedraashid/AcmeCorporation.git
 ```
 
 ### Prerequisites
 
 * .NET Core SDK 2.2
 * Angular CLI 11.0
+* Node 12
 * Sql Server 2019 (SSMS)
 
-### Install npm packages
-
-Install the npm packages described in the package.json and verify that it works:
-
+### Installing SPA project
+Open AcmeCorporation-SPA and install the npm packages described in the package.json and verify that it works:
 ```
 npm install
 ```
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+run the application and check whether it's working.
 ```
-Give the example
+ng serve
 ```
 
-And repeat
+### Installing API project
+Change the connection string to your local SQL server in appsetting.json if you want to run the application
 
 ```
-until finished
+ "ConnectionStrings": {
+    "Default": "Server=DESKTOP-LQRJPPK\\SQLEXPRESS;Database=acme;Integrated Security=True;"
+  },
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Open AcmeCorporation.API.csproj and build the project
 
 ```
-Give an example
+dotnet clean
+dotnet build
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+If the database is not updated, update the database
 
 ```
-Give an example
+dotnet ef database update
 ```
 
-## Deployment
+run the application
+```
+dotnet run
+```
 
-Add additional notes about how to deploy this on a live system
+Modify the BaseUrl in Angular project (constants.ts) if the .net application run in any other port than localhost:5000
 
-## Built With
+```
+export const baseUrlApi = "http://localhost:5000/api/";
+export const baseUrl = "http://localhost:5000/";
+```
+The system should build and work after the above steps, 
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+http://localhost:4200/home
+```
 
-## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+## Credentials
 
-## Versioning
+### Admin User
+* Email: johnwick@gmail.com
+* passowrd: password123
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+### Customer
+* Email: jason@gmail.com
+* passowrd: password123
 
-## Authors
+Can login to the system by clicking on login button on top right corner on nav bar.
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+### Features
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Product list would be listed on home (Active and Inactive products)
+* User can select a product and start bidding if auction has already started.
+* If the auction is yet to be started. User can wait until the countdown to finish and place the bids
+* When a product auction time expired, User will not be able to bid. Based on the bids, It will marked as sold or unsold.
+* Admin user can create a product in the admin panel.
+* Admin user can delete non-active products.
+* Admin user can modify products which are in in-active status

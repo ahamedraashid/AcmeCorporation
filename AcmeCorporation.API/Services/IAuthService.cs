@@ -7,7 +7,5 @@ namespace AcmeCorporation.API.Services
     {
         User Authenticate(string email, string password);
         User Register(User user, string password);
-        // void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
-
     }
 }

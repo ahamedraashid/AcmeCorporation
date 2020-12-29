@@ -4,17 +4,16 @@
     <div class="md-form">
       <input type="date" formControlName="startingDate" id="input" class="form-control" mdbInput >
       <label for="input">Starting date</label>
-      <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+      <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4 mt-3">
         If you set a date lesser than the current date, Auction will start right away.
       </small>
       <ng-container *ngIf="form.controls.startingDate.invalid && (form.controls.startingDate.dirty ||form.controls.startingDate.touched)">
-        <mdb-error  *ngIf="form.hasError('startDateError', 'startingDate')">
-          Starting date should be same or greater than current date
+        <mdb-error  *ngIf="form.hasError('required', 'startingDate')">
+          Starting Date is required
         </mdb-error>
-
-        <!-- <mdb-error  *ngIf="form.hasError('required', 'startingDate')">
-          Starting date is required
-        </mdb-error> -->
+        <mdb-error  *ngIf="form.hasError('dateError', 'startingDate')">
+          Starting date should be lesser than the ending date
+        </mdb-error>
 
       </ng-container>
     </div>
@@ -31,25 +30,25 @@
       />
       <label for="input">Starting time</label>
 
-      <ng-container *ngIf="form.hasError('required', 'startingTime') && (form.controls.startingTime.dirty ||form.controls.startingTime.touched)">
+      <ng-container *ngIf="form.controls.startingTime.dirty ||form.controls.startingTime.touched">
         <mdb-error  *ngIf="form.hasError('required', 'startingTime')">
           Starting time is required
         </mdb-error>
-
+        <mdb-error  *ngIf="form.hasError('dateError', 'startingTime')">
+          Starting time should be lesser than ending time
+        </mdb-error>
       </ng-container>
     </div>
   </div>
-
 </div>
-
 <div class="form-row">
   <div class="col col-md-6">
     <div class="md-form">
       <input type="date" id="input"  formControlName="endingDate" class="form-control" mdbInput>
       <label for="input">Ending date</label>
       <ng-container *ngIf="form.controls.endingDate.invalid && (form.controls.endingDate.dirty ||form.controls.endingDate.touched)">
-        <mdb-error  *ngIf="form.hasError('endDateError', 'endingDate')">
-          Ending date should be same or less than starting date & greater than current date
+        <mdb-error  *ngIf="form.hasError('dateError', 'endingDate')">
+          Ending time should be greater than starting time & current time
         </mdb-error>
         <mdb-error  *ngIf="form.hasError('required', 'endingDate')">
           Ending date is required
@@ -74,8 +73,8 @@
         <mdb-error  *ngIf="form.hasError('required', 'endingTime')">
           Ending time is required
         </mdb-error>
-        <mdb-error  *ngIf="form.hasError('endDateError', 'endingTime')">
-          Ending time should be same or less than starting time & greater than current time
+        <mdb-error  *ngIf="form.hasError('dateError', 'endingTime')">
+          Ending time should be greater than starting time & current time
         </mdb-error>
 
       </ng-container>

@@ -1,11 +1,8 @@
 using System.Net;
-using AcmeCorporation.API.Data.Contracts;
-using AcmeCorporation.API.Data.Models;
 using AcmeCorporation.API.LoggerService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace AcmeCorporation.API.Helpers
 {
@@ -22,16 +19,6 @@ namespace AcmeCorporation.API.Helpers
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        //  await issueLog.Add(new IssueLog
-                        // {
-                        //     ErrorDetails = "ontextFeature.Error.ToString()",
-                        //     StackTrace = "contextFeature.Error.StackTrace"
-                        // });
-
-                        // issueLog.SaveChanges();
-                        // logger.LogInformation(contextFeature.Error.ToString());           
-
-                        // logger.LogError($"Something went wrong: {contextFeature.Error}");
                         loggerManager.LogError(contextFeature.Error.ToString());
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
@@ -42,10 +29,5 @@ namespace AcmeCorporation.API.Helpers
                 });
             });
         }
-
-        // public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
-        // {
-        //     app.UseMiddleware<ErrorHandlerMiddleware>();
-        // }
     }
 }

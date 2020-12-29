@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { baseUrl } from '../constants';
-import { endDateValidate, startDateValidate } from '../customValidation';
+import { dateValidate } from '../customValidation';
 import { AlertifyService } from '../_services/alertify.service';
 import { DatetimeService } from '../_services/datetime.service';
 import { ProductService } from '../_services/product.service';
@@ -37,10 +37,11 @@ export class AddProductComponent implements OnInit {
       startingBid: new FormControl('', [Validators.min(0)]),
       startingDate: new FormControl('', [
         Validators.required,
+        dateValidate()
       ]),
-      startingTime: new FormControl('', Validators.required),
-      endingDate: new FormControl('', [Validators.required, endDateValidate()]),
-      endingTime: new FormControl('', [Validators.required, endDateValidate()]),
+      startingTime: new FormControl('', [Validators.required, dateValidate()]),
+      endingDate: new FormControl('', [Validators.required, dateValidate()]),
+      endingTime: new FormControl('', [Validators.required, dateValidate()]),
     });
 
     this.activatedRoute.params.subscribe((s: any) => {
@@ -55,20 +56,16 @@ export class AddProductComponent implements OnInit {
   }
 
   setProductProperties(id: number) {
-    debugger;
     let product;
     this.productService.getProductById(id).subscribe((s: any) => {
       this.product = s;
-      console.log(s.startingTime);
-
       let startingValues = this.dateTimeService.splitDateAndTime(
         new Date(s.startingTime)
       );
       let endingValues = this.dateTimeService.splitDateAndTime(
         new Date(s.endingTime)
       );
-      console.log(startingValues.date);
-      console.log(s.description);
+
       this.addProductForm.patchValue({
         name: s.name,
         description: s.description === 'null' ? '' : s.description,
@@ -79,10 +76,8 @@ export class AddProductComponent implements OnInit {
         endingTime: endingValues.time,
       });
     });
-    console.log(product);
     this.addProductForm.get('startingBid');
   }
-  // self = this;
   onSelectFile(event) {
     this.files = event.target.files;
     this.imageUrl = [];
@@ -131,13 +126,13 @@ export class AddProductComponent implements OnInit {
     }
 
     // console.log(startingDate);
-    let startingTime = this.addProductForm.get('startingTime').value;
-    let startingDate = this.addProductForm.get('startingDate').value;
-    let endingTime = this.addProductForm.get('endingTime').value;
-    let endingDate = this.addProductForm.get('endingDate').value;
-    let initialBid = this.addProductForm.get('startingBid').value;
+    const startingTime = this.addProductForm.get('startingTime').value;
+    const startingDate = this.addProductForm.get('startingDate').value;
+    const endingTime = this.addProductForm.get('endingTime').value;
+    const endingDate = this.addProductForm.get('endingDate').value;
+    const initialBid = this.addProductForm.get('startingBid').value;
 
-    let formData = new FormData();
+    const formData = new FormData();
 
     for (let i = 0; i < this.files?.length; i++) {
       formData.append('Photos', this.files[i], this.files[i].name);
@@ -166,8 +161,6 @@ export class AddProductComponent implements OnInit {
         .toISOString()
     );
 
-
-
     if (this.editMode) {
       formData.append('IsFileModified', this.fileChanged.toString());
       formData.append('Id', this.product.id);
@@ -194,7 +187,5 @@ export class AddProductComponent implements OnInit {
           )
       );
     }
-
-    console.log(formData);
   }
 }

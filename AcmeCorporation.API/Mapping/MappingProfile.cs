@@ -16,11 +16,8 @@ namespace AcmeCorporation.API.Mapping
             .ForMember(x => x.TransactionCount, opt => opt.MapFrom(s => s.Transactions.Count()));
             CreateMap<User, UserDto>();
 
-
             // Dto's to domain objects
             CreateMap<ProductDto, Product>().ForMember(x => x.Photos, opt => opt.Ignore()); 
-            // .ForMember(x => x.StartingTime, opt => opt.MapFrom(s => s.StartingTime.ToUniversalTime()))
-            // .ForMember(x => x.EndingTime, opt => opt.MapFrom(s => s.EndingTime.ToUniversalTime()));
             CreateMap<UserDto, User>();
         }
     }

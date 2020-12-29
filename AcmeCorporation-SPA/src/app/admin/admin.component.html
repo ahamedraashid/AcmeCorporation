@@ -1,9 +1,6 @@
 <div class="content-body">
   <div *ngIf="LoggedInAsAdmin" class="pt-5 col-md-3 offset-md-2">
     <button type="button" mdbBtn color="info" [routerLink]="['/admin/addproduct']" [rounded]="true" size="md">Add Product<mdb-icon fas icon="plus" class="ml-2" aria-hidden="true"></mdb-icon></button>
-    <!-- <button mdbBtn  type="button"  color="green" data-toggle="modal" size="sm" mdbWavesEffect>Add new product</button> -->
   </div>
-<!-- <app-add-product></app-add-product> -->
 <app-product-admin-list [loggedInAsAdmin]="LoggedInAsAdmin"></app-product-admin-list>
 </div>
-<!-- <app-delete-product></app-delete-product> -->

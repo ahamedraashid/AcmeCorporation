@@ -60,9 +60,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.alertify.message('Successfully logged out');
-    // if (this.router.url.indexOf('/product') === -1) {
-    //   this.router.navigate(['/home']);
-    // }
     this.router.navigate(['/home']);
   }
 }

@@ -10,6 +10,7 @@ using AcmeCorporation.API.Services;
 using System.Security.Claims;
 using AcmeCorporation.API.Shared.Enums;
 using System;
+using System.Net;
 
 namespace AcmeCorporation.API.Data.Contracts
 {
@@ -57,6 +58,7 @@ namespace AcmeCorporation.API.Data.Contracts
         [Authorize(Roles = "Admin")]
         public async Task<ProductDto> Create([FromForm] ProductDto newProduct)
         {
+            //TODO: We need to map this date into UTC , since diff people can access from diff local
             var product = _mapper.Map<ProductDto, Product>(newProduct);
             product.Photos = _fileUploadService.UploadFiles(newProduct.Photos);
             var addedProduct = await _productRepository.Add(product);
@@ -80,6 +82,19 @@ namespace AcmeCorporation.API.Data.Contracts
         {
             var product = await _productRepository.Get(updatedProduct.Id);
             _mapper.Map<ProductDto, Product>(updatedProduct, product);
+            if (product.StartingTime > DateTime.Now && product.StartingTime < product.EndingTime)
+            {
+                product.Status = ProductStatus.Inactive;
+            }
+            else if (product.StartingTime < DateTime.Now && product.StartingTime < product.EndingTime)
+            {
+                 product.Status = ProductStatus.Active;
+            }
+            else
+            {
+              return new StatusCodeResult(400);
+
+            }
             if (updatedProduct.IsFileModified)
             {
                 product.Photos.Clear();
@@ -91,15 +106,19 @@ namespace AcmeCorporation.API.Data.Contracts
 
         [HttpPost]
         [Authorize(Roles = "Admin, User")]
-        public async Task<ProductDto> AddTransactionToProduct([FromBody] Transaction transaction)
+        public async Task<IActionResult> AddTransactionToProduct([FromBody] Transaction transaction)
         {
             var product = await _productRepository.Get(transaction.ProductId);
+            if (!(product.StartingTime <= DateTime.Now && product.EndingTime > DateTime.Now) || transaction.Amount < product.HighestBid)
+            {
+                return new StatusCodeResult(400);
+            }
             var userUniqueIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             transaction.User = _userRepository.GetUserByEmailAddress(userUniqueIdentifier);
             transaction.UpdatedTime = DateTime.Now;
             product.Transactions.Add(transaction);
             _productRepository.SaveChanges();
-            return _mapper.Map<Product, ProductDto>(product);
+            return Ok(_mapper.Map<Product, ProductDto>(product));
         }
 
         [HttpPost]

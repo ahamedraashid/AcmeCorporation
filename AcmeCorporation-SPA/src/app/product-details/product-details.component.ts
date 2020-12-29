@@ -45,16 +45,11 @@ export class ProductDetailsComponent implements OnInit {
       if (typeof s.id !== 'undefined') {
         this.productService.getProductById(s.id).subscribe((product: any) => {
           this.product = product;
-          console.log(new Date(product.startingTime));
-          console.log(new Date(product.endingTime));
           this.timerString = this.timerService.timer(
             this.startingTimeObject,
             this.endingTimeObject
           );
           this.timeStringSubscribe();
-          console.log(
-            new Date(product.startingTime) < new Date(product.endingTime)
-          );
         });
       }
     });
@@ -126,6 +121,5 @@ export class ProductDetailsComponent implements OnInit {
           'Something went wrong while placing the bid!'
         )
     );
-    console.log(newAmount);
   }
 }

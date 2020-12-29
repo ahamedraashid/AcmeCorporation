@@ -13,7 +13,6 @@ declare var jQuery: any;
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-
   constructor(public authService: AuthService, private alertify: AlertifyService) {
   }
 

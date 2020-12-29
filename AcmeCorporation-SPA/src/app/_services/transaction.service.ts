@@ -7,8 +7,6 @@ import { AlertifyService } from './alertify.service';
   providedIn: 'root'
 })
 export class TransactionService {
-
-
   constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
   addTransaction(transaction: any) {

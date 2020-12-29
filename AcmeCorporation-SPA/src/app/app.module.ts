@@ -22,7 +22,6 @@ import { HomeComponent } from './home/home.component';
 import { ProductAdminListComponent } from './product-admin-list/product-admin-list.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { AddProductComponent } from './add-product/add-product.component';
-import { FileuploadComponent } from './fileupload/fileupload.component';
 import { DatetimepickerComponent } from './datetimepicker/datetimepicker.component';
 import { DatetimeService } from './_services/datetime.service';
 import {  AdminGuard } from './_guard/admin.guard';
@@ -31,7 +30,7 @@ import { PlaceBidComponent } from './place-bid/place-bid.component';
 import { DeleteProductComponent } from './delete-product/delete-product.component';
 
 @NgModule({
-  declarations: [			
+  declarations: [
     AppComponent,
       ProductListComponent,
       SearchBarComponent,
@@ -43,7 +42,6 @@ import { DeleteProductComponent } from './delete-product/delete-product.componen
       ProductAdminListComponent,
       DatatableComponent,
       AddProductComponent,
-      FileuploadComponent,
       DatetimepickerComponent,
       ProductDetailsComponent,
       PlaceBidComponent,

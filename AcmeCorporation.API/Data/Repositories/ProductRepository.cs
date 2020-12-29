@@ -29,7 +29,6 @@ namespace AcmeCorporation.API.Data.Repositories
 
         public override void Delete(int id)
         {
-            // var entity = await Get(id);
             var product = dbSet.Find(id);
             product.IsDeleted = true;
         }

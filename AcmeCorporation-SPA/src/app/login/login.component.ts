@@ -12,8 +12,6 @@ declare var jQuery: any;
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  // @ViewChild('frame', { static: true }) demoBasic: ModalDirective;
-
   loginForm: any;
 
   constructor(private authService: AuthService, private alertify: AlertifyService) {
@@ -29,13 +27,9 @@ export class LoginComponent implements OnInit {
   get loginFormModalEmail() {
     return this.loginForm.get('loginFormModalEmail');
   }
-
   get loginFormModalPassword() {
     return this.loginForm.get('loginFormModalPassword');
   }
-
-
-
   login() {
     const model = {
       EmailAddress: this.loginFormModalEmail.value,
@@ -45,9 +39,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(model).subscribe(next => {
       jQuery('#loginForm').modal('hide');
       this.alertify.success('Logged in successfully!');
-      // console.log('logged in succesfully');
     }, error => { this.alertify.error('Incorrect Email Address or Password!'); });
   }
-
-
 }

@@ -6,9 +6,6 @@ namespace AcmeCorporation.API.Data.Contracts
 {
     public interface IProductRepository : IEntityRepository<Product>
     {
-        // Task<IEnumerable<Product>> GetAllProductsWithProductDetails();
-        // Task<Product> GetProductWithProductDetails(int id);
         Task<IEnumerable<Product>> GetActiveProducts();
-        // Task<decimal> GetLatestBidForProduct(int productId);
     }
 }

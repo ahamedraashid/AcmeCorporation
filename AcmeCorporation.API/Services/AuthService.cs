@@ -31,13 +31,11 @@ namespace AcmeCorporation.API.Services
             {
                 return null;
             }
-            // return null if user not found
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 return null;
             }
 
-            // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
              var key = new SymmetricSecurityKey(Encoding.UTF8
                         .GetBytes(_configuration.GetSection("AppSettings:Token").Value));   
@@ -56,9 +54,6 @@ namespace AcmeCorporation.API.Services
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
-
-            // remove password before returning
-            // user.ClearPassword();
             return user;
         }
 

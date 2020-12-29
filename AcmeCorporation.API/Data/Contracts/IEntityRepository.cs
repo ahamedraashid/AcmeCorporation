@@ -11,7 +11,6 @@ namespace AcmeCorporation.API.Data.Contracts
         Task<TEntity> Get(int id);
         IQueryable<TEntity> GetAll();
         Task<TEntity> Add(TEntity entity);
-        // void Update(TEntity entity);
         void Delete(TEntity entity);
         void Delete(int id);
         Task<IEnumerable<TEntity>> AddRange(IList<TEntity> entity);

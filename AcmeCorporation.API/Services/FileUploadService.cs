@@ -6,7 +6,6 @@ using AcmeCorporation.API.Data.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
 
 namespace AcmeCorporation.API.Services
 {
@@ -27,22 +26,14 @@ namespace AcmeCorporation.API.Services
                 {
                     if (file.Length > 0)
                     {
-                        //Getting FileName
                         var fileName = Path.GetFileName(file.FileName);
 
-                        //Assigning Unique Filename (Guid)
                         var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                        //Getting file Extension
                         var fileExtension = Path.GetExtension(fileName);
                         var folder = _configuration.GetSection("FileStore:Images").Value;
-
-                        // concatenating  FileName + FileExtension
                         var newFileName = String.Concat(myUniqueFileName, fileExtension);
                         var projectDir = _configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
-                        // var projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
-                        // Combines two strings into a path.
                         var filepath = Path.Combine(projectDir, folder, newFileName);
 
                         using (FileStream fs = System.IO.File.Create(filepath))

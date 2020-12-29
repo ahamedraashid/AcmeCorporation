@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AcmeCorporation.API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using AcmeCorporation.API.Data.Contracts;
 using AcmeCorporation.API.Data.Repositories;
@@ -21,10 +15,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AcmeCorporation.API.Services;
 using AcmeCorporation.API.Helpers;
-using AcmeCorporation.API.Data.Models;
-using Microsoft.AspNetCore.Diagnostics;
-using System.Net;
-using Microsoft.AspNetCore.Http;
 using System.IO;
 using AcmeCorporation.API.LoggerService;
 using NLog;
@@ -55,7 +45,6 @@ namespace AcmeCorporation.API
             services.AddScoped(typeof(IAuthService), typeof(AuthService));
             services.AddTransient(typeof(IFileUploadService), typeof(FileUploadService));
             services.AddSingleton<ILoggerManager, LoggerManager>();
-            services.AddTransient<Seed>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -73,7 +62,7 @@ namespace AcmeCorporation.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManager loggerManager, Seed seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerManager loggerManager)
         {
             if (env.IsDevelopment())
             {
@@ -81,7 +70,6 @@ namespace AcmeCorporation.API
             }
             else
             {
-                // app.ConfigureCustomExceptionMiddleware(app)
                 app.ConfigureExceptionHandler(loggerManager);
             }
 
@@ -94,7 +82,6 @@ namespace AcmeCorporation.API
                 RequestPath = "/Images"
                 });
 
-            // app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();

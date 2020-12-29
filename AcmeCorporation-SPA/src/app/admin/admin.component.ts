@@ -8,13 +8,9 @@ import { AuthService } from '../_services/auth.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
-  // isAdmin: boolean;
   constructor(private authService: AuthService, private router: Router) { }
-
   ngOnInit() {
   }
-
   get LoggedInAsAdmin() {
     return this.authService.loggedInAdmin();
   }

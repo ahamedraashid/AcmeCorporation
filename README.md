@@ -77,11 +77,11 @@ http://localhost:4200/home
 
 ### Admin User
 * Email: johnwick@gmail.com
-* passowrd: password123
+* password: password123
 
 ### Customer
 * Email: jason@gmail.com
-* passowrd: password123
+* password: password123
 
 Can login to the system by clicking on login button on top right corner on nav bar.
 

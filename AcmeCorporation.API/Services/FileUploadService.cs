@@ -6,6 +6,7 @@ using AcmeCorporation.API.Data.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 
 namespace AcmeCorporation.API.Services
 {
@@ -15,7 +16,7 @@ namespace AcmeCorporation.API.Services
         public FileUploadService(IConfiguration configuration)
         {
             _configuration = configuration;
-            
+
         }
         public IList<Photo> UploadFiles(IList<IFormFile> files)
         {
@@ -44,7 +45,7 @@ namespace AcmeCorporation.API.Services
 
                         images.Add(new Photo
                         {
-                            Filename =  Path.Combine(folder, newFileName)
+                            Filename = Path.Combine(folder, newFileName)
                         });
 
                     }
@@ -53,7 +54,7 @@ namespace AcmeCorporation.API.Services
             return images;
         }
 
-         public IList<string> GetPhysicalPathFromRelativeUrl(IList<string> urls)
+        public IList<string> GetPhysicalPathFromRelativeUrl(IList<string> urls)
         {
             var physicalPaths = new List<string>();
             var folder = _configuration.GetSection("FileStore:Images").Value;
@@ -64,6 +65,24 @@ namespace AcmeCorporation.API.Services
             });
 
             return physicalPaths;
+        }
+
+        public void RemoveExistingImagesFromStorage(List<Photo> photos)
+        {
+            photos.ForEach(p =>
+            {
+                DeleteFile(p.Filename);
+            });
+        }
+
+        private void DeleteFile(string filePath)
+        {
+            var projectDir = _configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
+            var fullPath = Path.Combine(projectDir, filePath);
+            if (File.Exists(fullPath))
+            {
+                File.Delete(fullPath);
+            }
         }
     }
 }

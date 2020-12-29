@@ -97,6 +97,7 @@ namespace AcmeCorporation.API.Data.Contracts
             }
             if (updatedProduct.IsFileModified)
             {
+                _fileUploadService.RemoveExistingImagesFromStorage(product.Photos.ToList());
                 product.Photos.Clear();
                 product.Photos = _fileUploadService.UploadFiles(updatedProduct.Photos);
             }

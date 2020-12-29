@@ -8,5 +8,7 @@ namespace AcmeCorporation.API.Services
     {
         IList<Photo> UploadFiles(IList<IFormFile> files);
         IList<string> GetPhysicalPathFromRelativeUrl(IList<string> urls);
+        void RemoveExistingImagesFromStorage(List<Photo> photos);
+
     }
 }

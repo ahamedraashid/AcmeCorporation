@@ -23,7 +23,10 @@
         <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">Rs {{el.highestBid | number : '.2-2'}}</td>
         <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.displayStartingTime }}</td>
         <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.displayEndingTime }}</td>
-        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.status }}</td>
+        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+           <h6 >
+          <mdb-badge [color]="getStatusColor(el.status)">{{el.status }}</mdb-badge>
+        </h6></td>
 
         <td  *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
           <a *ngIf="el.status == 'Inactive'" mdbBtn size="sm" [routerLink]="['/admin/addproduct', el.id]" color="warning" mdbwaveseffect="" ><mdb-icon fas icon="edit"></mdb-icon></a>

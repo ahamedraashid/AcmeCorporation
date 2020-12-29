@@ -1,22 +1,35 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  MdbTableDirective,
+  MdbTablePaginationComponent,
+} from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
-  styleUrls: ['./datatable.component.scss']
+  styleUrls: ['./datatable.component.scss'],
 })
 export class DatatableComponent implements OnInit {
-
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
-  @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
+  @ViewChild(MdbTablePaginationComponent, { static: true })
+  mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
   elements: any = [];
   @Input() headElements: any;
   @Input() itemList: any;
   productId: number;
-  searchText  = '';
+  searchText = '';
   previous: string;
 
   maxVisibleItems = 8;
@@ -80,6 +93,19 @@ export class DatatableComponent implements OnInit {
       if (item.id === productId) {
         this.itemList.splice(index, 1);
       }
-   });
+    });
+  }
+
+  getStatusColor(status: any) {
+    switch (status) {
+      case 'Active':
+        return 'green';
+      case 'Inactive':
+        return 'orange';
+      case 'Sold':
+        return 'blue';
+      case 'Unsold':
+        return 'red';
+    }
   }
 }

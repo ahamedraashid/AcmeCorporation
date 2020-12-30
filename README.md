@@ -88,7 +88,8 @@ Can login to the system by clicking on login button on top right corner on nav b
 ### Features
 
 * Product list would be listed on home (Active and Inactive products)
-* User can select a product and start bidding if auction has already started.
+* User can select a product and view the details of the product.
+* Registered user can place a bid for active products.
 * If the auction is yet to be started. User can wait until the countdown to finish and place the bids
 * When a product auction time expired, User will not be able to bid. Based on the bids, It will marked as sold or unsold.
 * Admin user can create a product in the admin panel.

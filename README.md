@@ -95,3 +95,9 @@ Can login to the system by clicking on login button on top right corner on nav b
 * Admin user can create a product in the admin panel.
 * Admin user can delete non-active products.
 * Admin user can modify products which are in in-active status
+
+### Future improvements
+
+* Implementing SignalR( or similar web socket programming framework) to push bid updates from server to client.
+* Introducing lazy loading to load products in the home page (Instead of loading all the products in browser at once).
+* Improvement to be done on on Admin features (activating and deactivating customers, adding a new Admin).

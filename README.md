@@ -88,9 +88,16 @@ Can login to the system by clicking on login button on top right corner on nav b
 ### Features
 
 * Product list would be listed on home (Active and Inactive products)
-* User can select a product and start bidding if auction has already started.
+* User can select a product and view the details of the product.
+* Registered user can place a bid for active products.
 * If the auction is yet to be started. User can wait until the countdown to finish and place the bids
 * When a product auction time expired, User will not be able to bid. Based on the bids, It will marked as sold or unsold.
 * Admin user can create a product in the admin panel.
 * Admin user can delete non-active products.
 * Admin user can modify products which are in in-active status
+
+### Future improvements
+
+* Implementing SignalR( or similar web socket programming framework) to push bid updates from server to client.
+* Introducing lazy loading to load products in the home page (Instead of loading all the products in browser at once).
+* Improvement to be done on on Admin features (activating and deactivating customers, adding a new Admin).

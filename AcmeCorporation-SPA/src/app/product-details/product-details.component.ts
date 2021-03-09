@@ -12,6 +12,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 import { DatetimeService } from '../_services/datetime.service';
 import { ProductService } from '../_services/product.service';
+import { SignalRService } from '../_services/signal-r.service';
 import { TimerService } from '../_services/timer.service';
 import { TransactionService } from '../_services/transaction.service';
 
@@ -37,7 +38,8 @@ export class ProductDetailsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private timerService: TimerService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private signalR: SignalRService
   ) {}
 
   ngOnInit() {
@@ -53,6 +55,11 @@ export class ProductDetailsComponent implements OnInit {
         });
       }
     });
+
+    this.signalR.eventCallback$.subscribe(data => {
+      debugger;
+      this.product.highestBid = data.highestBid;
+  });
   }
 
   get startingTimeObject() {

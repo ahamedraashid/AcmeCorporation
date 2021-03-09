@@ -21,6 +21,8 @@ export function dateValidate(): ValidatorFn {
     const startDate = new Date(control.parent?.controls['startingDate']?.value);
 
     const dateNow = new Date();
+
+    // Move this data creation to seperate method where it can be reused.
     const startDateObj = new Date(
       startDate.getFullYear(),
       startDate.getMonth(),

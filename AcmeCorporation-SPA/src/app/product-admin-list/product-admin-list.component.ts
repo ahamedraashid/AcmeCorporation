@@ -10,7 +10,7 @@ declare var moment: any;
 export class ProductAdminListComponent implements OnInit {
   @Input() loggedInAsAdmin: boolean;
   productList: any;
-  headElements = ['Id', 'Name', 'Starting Bid', 'Current Bid', 'St. Time', 'End Time', 'Status'];
+  headElements = ['Id', 'Name', 'Starting Bid', 'Current Bid', 'St. Time', 'End Time', 'Bid Count', 'Status'];
   constructor(private productService: ProductService) { }
   ngOnInit() {
     this.getAllProducts();

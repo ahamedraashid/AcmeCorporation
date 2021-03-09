@@ -11,6 +11,7 @@ using System.Security.Claims;
 using AcmeCorporation.API.Shared.Enums;
 using System;
 using System.Net;
+using Microsoft.AspNetCore.SignalR;
 
 namespace AcmeCorporation.API.Data.Contracts
 {
@@ -21,14 +22,16 @@ namespace AcmeCorporation.API.Data.Contracts
         private IProductRepository _productRepository;
         private readonly IUserRepository _userRepository;
         private readonly IFileUploadService _fileUploadService;
+        private readonly IHubContext<MessageHub> _messageHubService;
         private readonly IMapper _mapper;
 
-        public ProductController(IProductRepository productRepository, IUserRepository userRepository, IFileUploadService fileUploadService, IMapper mapper)
+        public ProductController(IProductRepository productRepository, IUserRepository userRepository, IFileUploadService fileUploadService, IMapper mapper, IHubContext<MessageHub> messageHubService)
         {
             _mapper = mapper;
             _productRepository = productRepository;
             _userRepository = userRepository;
             _fileUploadService = fileUploadService;
+            _messageHubService = messageHubService;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -51,7 +54,8 @@ namespace AcmeCorporation.API.Data.Contracts
         {
             var activeProducts = await _productRepository.GetActiveProducts();
             var productDtos = _mapper.Map<IList<Product>, IList<ProductDto>>(activeProducts.ToList());
-            return productDtos;
+            // TODO: we need to find a proper solution to update the status of the item saved on DB or We can remove the status bool from the DB
+            return productDtos.Where(s => s.Status.Equals(ProductStatus.Active.ToString())  || s.Status.Equals(ProductStatus.Inactive.ToString())).ToList();
         }
 
         [HttpPost]
@@ -118,7 +122,12 @@ namespace AcmeCorporation.API.Data.Contracts
             transaction.User = _userRepository.GetUserByEmailAddress(userUniqueIdentifier);
             transaction.UpdatedTime = DateTime.Now;
             product.Transactions.Add(transaction);
-            _productRepository.SaveChanges();
+            var save = _productRepository.SaveChanges();
+            if (save > 0)
+            {
+                // await _messageHubService.NewMessage(transaction);
+                await _messageHubService.Clients.All.SendAsync("MessageReceived", _mapper.Map<Product, ProductDto>(product));  
+            }
             return Ok(_mapper.Map<Product, ProductDto>(product));
         }
 

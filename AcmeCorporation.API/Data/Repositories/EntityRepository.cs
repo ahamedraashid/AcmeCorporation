@@ -52,9 +52,9 @@ namespace AcmeCorporation.API.Data.Repositories
             return dbSet;
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
-        _context.SaveChanges();
+        return _context.SaveChanges();
         }
 
         public async Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)

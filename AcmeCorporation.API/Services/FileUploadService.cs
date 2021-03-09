@@ -54,6 +54,8 @@ namespace AcmeCorporation.API.Services
             return images;
         }
 
+        //TODO: unused method
+
         public IList<string> GetPhysicalPathFromRelativeUrl(IList<string> urls)
         {
             var physicalPaths = new List<string>();

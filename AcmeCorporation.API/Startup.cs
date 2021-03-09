@@ -45,6 +45,8 @@ namespace AcmeCorporation.API
             services.AddScoped(typeof(IAuthService), typeof(AuthService));
             services.AddTransient(typeof(IFileUploadService), typeof(FileUploadService));
             services.AddSingleton<ILoggerManager, LoggerManager>();
+            services.AddScoped<MessageHub, MessageHub>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -59,6 +61,7 @@ namespace AcmeCorporation.API
                 };
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,9 +85,15 @@ namespace AcmeCorporation.API
                 RequestPath = "/Images"
                 });
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
+            app.UseCors(x => x.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseAuthentication();
             app.UseMvc();
+
+            app.UseSignalR(options =>  
+            {  
+                options.MapHub<MessageHub>("/MessageHub");  
+            });   
         }
     }
 }

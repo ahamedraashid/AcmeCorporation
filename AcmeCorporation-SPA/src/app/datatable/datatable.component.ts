@@ -106,6 +106,8 @@ export class DatatableComponent implements OnInit {
         return 'blue';
       case 'Unsold':
         return 'red';
+      default:
+        return '';
     }
   }
 }

@@ -14,6 +14,7 @@ namespace AcmeCorporation.API.Data.Models
         {
             Photos = new Collection<Photo>();
             Transactions = new Collection<Transaction>();
+            
         }
         public int Id { get; set; }
         [Required]

@@ -24,7 +24,7 @@ namespace AcmeCorporation.API.Data.Repositories
         public async Task<IEnumerable<Product>> GetActiveProducts()
         {
             return await dbSet.Include(t => t.Transactions).Include(s => s.Photos)
-                            .Where(p => p.Status == ProductStatus.Active || p.Status == ProductStatus.Inactive).ToListAsync();
+                                .Where(p => p.Status == ProductStatus.Active || p.Status == ProductStatus.Inactive).ToListAsync();
         }
 
         public override void Delete(int id)

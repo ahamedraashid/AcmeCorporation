@@ -14,7 +14,7 @@ namespace AcmeCorporation.API.Data.Contracts
         void Delete(TEntity entity);
         void Delete(int id);
         Task<IEnumerable<TEntity>> AddRange(IList<TEntity> entity);
-        void SaveChanges();
+        int SaveChanges();
         Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
     }
 }
